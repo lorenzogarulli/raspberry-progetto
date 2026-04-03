@@ -60,6 +60,6 @@ def nuova_visita():
 if __name__ == "__main__":
     try:
         # 0.0.0.0 rende il server accessibile dalla rete locale
-        app.run(host="0.0.0.0", port=5000, debug=True)
+        app.run(host="0.0.0.0", port=5000)
     finally:
         gpio_controller.cleanup()
