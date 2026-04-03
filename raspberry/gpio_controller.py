@@ -24,7 +24,7 @@ def setup():
     GPIO.setwarnings(False)
     for name, pin in RELAY_PINS.items():
         GPIO.setup(pin, GPIO.OUT)
-        GPIO.output(pin, GPIO.LOW)
+        GPIO.output(pin, GPIO.HIGH)
         print(f"Pin {pin} ({name}) inizializzato")
 
 
@@ -36,7 +36,7 @@ def relay_on(relay_name):
     if GPIO is None:
         print(f"[SIM] Relè {relay_name} (pin {pin}) → ON")
         return True
-    GPIO.output(pin, GPIO.HIGH)
+    GPIO.output(pin, GPIO.LOW)
     print(f"Relè {relay_name} (pin {pin}) → ON")
     return True
 
@@ -49,7 +49,7 @@ def relay_off(relay_name):
     if GPIO is None:
         print(f"[SIM] Relè {relay_name} (pin {pin}) → OFF")
         return True
-    GPIO.output(pin, GPIO.LOW)
+    GPIO.output(pin, GPIO.HIGH)
     print(f"Relè {relay_name} (pin {pin}) → OFF")
     return True
 
@@ -61,7 +61,7 @@ def get_status():
         if GPIO is None:
             status[name] = {"pin": pin, "state": "off"}
         else:
-            state = "on" if GPIO.input(pin) else "off"
+            state = "on" if not GPIO.input(pin) else "off"
             status[name] = {"pin": pin, "state": state}
     return status
 
