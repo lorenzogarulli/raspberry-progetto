@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import gpio_controller
+import threading
 
 app = Flask(__name__)
 CORS(app)  # Permette richieste dal sito web esterno
@@ -40,10 +41,18 @@ def stato_rele():
 
 @app.route("/visita", methods=["POST"])
 def nuova_visita():
-    """Chiamato quando qualcuno visita il sito - attiva il relè 1."""
+    """Chiamato quando qualcuno visita il sito - attiva il relè 1 per 60 secondi."""
     gpio_controller.relay_on("rele1")
+
+    def spegni_dopo():
+        threading.Event().wait(60)
+        gpio_controller.relay_off("rele1")
+        print("Relè 1 spento dopo 60 secondi")
+
+    threading.Thread(target=spegni_dopo, daemon=True).start()
+
     return jsonify({
-        "messaggio": "Visita registrata! Relè 1 attivato",
+        "messaggio": "Visita registrata! Relè 1 attivato per 60 secondi",
         "successo": True
     })
 
