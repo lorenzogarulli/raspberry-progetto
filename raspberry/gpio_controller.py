@@ -23,8 +23,7 @@ def setup():
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     for name, pin in RELAY_PINS.items():
-        GPIO.setup(pin, GPIO.OUT)
-        GPIO.output(pin, GPIO.HIGH)
+        GPIO.setup(pin, GPIO.OUT, initial=GPIO.HIGH)
         print(f"Pin {pin} ({name}) inizializzato")
 
 
@@ -67,7 +66,8 @@ def get_status():
 
 
 def cleanup():
-    """Pulisce i pin GPIO."""
+    """Spegne tutti i relè."""
     if GPIO is not None:
-        GPIO.cleanup()
-        print("GPIO cleanup completato")
+        for name, pin in RELAY_PINS.items():
+            GPIO.output(pin, GPIO.HIGH)
+        print("Tutti i relè spenti")
