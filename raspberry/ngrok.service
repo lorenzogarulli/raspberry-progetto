@@ -1,0 +1,12 @@
+[Unit]
+Description=Ngrok Tunnel
+After=network-online.target flask-rele.service
+Wants=network-online.target
+
+[Service]
+User=raspberrysplax
+ExecStart=/usr/local/bin/ngrok http 5000 --url unsaving-tessa-disorientedly.ngrok-free.dev
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

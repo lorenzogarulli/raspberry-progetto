@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask Rele Server
+After=network.target
+
+[Service]
+User=raspberrysplax
+WorkingDirectory=/home/raspberrysplax/raspberry-progetto/raspberry
+ExecStart=/home/raspberrysplax/raspberry-progetto/raspberry/venv/bin/python3 /home/raspberrysplax/raspberry-progetto/raspberry/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
