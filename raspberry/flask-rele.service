@@ -5,6 +5,7 @@ After=network.target
 [Service]
 User=raspberrysplax
 WorkingDirectory=/home/raspberrysplax/raspberry-progetto/raspberry
+Environment=DISPLAY=:0
 ExecStart=/home/raspberrysplax/raspberry-progetto/raspberry/venv/bin/python3 /home/raspberrysplax/raspberry-progetto/raspberry/app.py
 Restart=always
 
